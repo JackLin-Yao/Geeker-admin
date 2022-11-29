@@ -42,9 +42,9 @@ const submitAction = () => {
   loginFormRef.value?.validate(async (valid: boolean) => {
     if (valid) {
       try {
-        const username = loginForm.username
+        const name = loginForm.username
         const password = loginForm.password
-        login({ username, password }).then((res) => {
+        login({ name, password }).then((res) => {
           console.log(res)
         })
         ElMessage.success('成功信息')
@@ -103,9 +103,10 @@ const submitAction = () => {
   overflow: hidden;
 
   .main-img {
+    display: flex;
+    align-items: center;
     width: 60vw;
     height: 100vh;
-    margin-top: 250px;
   }
 
   .login-form {
