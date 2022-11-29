@@ -1,9 +1,13 @@
 import axios from 'axios'
-
-const httpIntance = axios.create({})
+// 配置新建一个 axios 实例
+const service = axios.create({
+  baseURL: import.meta.env.VITE_API_URL as any,
+  timeout: 50000,
+  headers: { 'Content-Type': 'application/json' },
+})
 
 // 添加请求拦截器
-httpIntance.interceptors.request.use(
+service.interceptors.request.use(
   function (config) {
     // 在发送请求之前做些什么
     return config
@@ -15,7 +19,7 @@ httpIntance.interceptors.request.use(
 )
 
 // 添加响应拦截器
-httpIntance.interceptors.response.use(
+service.interceptors.response.use(
   function (response) {
     // 2xx 范围内的状态码都会触发该函数。
     // 对响应数据做点什么
@@ -28,4 +32,4 @@ httpIntance.interceptors.response.use(
   }
 )
 
-export default httpIntance
+export default service
