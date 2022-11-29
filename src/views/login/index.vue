@@ -2,6 +2,9 @@
 
 <template>
   <div class="login">
+    <div class="main-img">
+      <img src="../../assets/img/svg-img.svg" alt="" />
+    </div>
     <div class="login-form">
       <el-form>
         <div class="login-title">后台管理系统</div>
@@ -32,11 +35,19 @@
 .login {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
 
   width: 100%;
   height: 100%;
   background: url('../../assets/img/login-bg.svg');
+  box-sizing: border-box;
+  overflow: hidden;
+
+  .main-img {
+    width: 60vw;
+    height: 100vh;
+    margin-top: 250px;
+  }
 
   .login-form {
     width: 380px;
@@ -55,12 +66,6 @@
       height: 100%;
     }
 
-    ::v-deep .el-textarea__inner,
-    .el-input__inner,
-    .el-input__wrapper {
-      background: transparent;
-    }
-
     .el-input {
       width: 350px;
       border-radius: 4px;
@@ -76,6 +81,8 @@
       display: flex;
       justify-content: space-betweens;
       width: 100%;
+      box-sizing: border-box;
+      padding: 0 15px;
     }
 
     .login-title {
@@ -103,6 +110,8 @@
       justify-content: space-between;
       align-items: center;
       width: 100%;
+      box-sizing: border-box;
+      padding: 0 15px;
     }
   }
 }
