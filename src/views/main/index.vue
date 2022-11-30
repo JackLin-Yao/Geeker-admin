@@ -1,9 +1,17 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { Local } from '@/utils/storage'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const logout = () => {
+  Local.remove('token')
+  router.push('login')
+}
+</script>
 
 <template>
-  <div class="main">
-    <svg-icon></svg-icon>
-  </div>
+  <el-button type="primary" @click="logout">退出登录</el-button>
 </template>
 
 <style scoped lang="scss">

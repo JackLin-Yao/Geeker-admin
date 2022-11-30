@@ -1,5 +1,6 @@
 import axios from 'axios'
 import NProgress from 'nprogress'
+import { Local, Session } from './storage'
 // 配置新建一个 axios 实例
 const service = axios.create({
   baseURL: import.meta.env.VITE_API_URL as any,
@@ -12,6 +13,13 @@ service.interceptors.request.use(
   function (config) {
     // 在发送请求之前做些什么
     NProgress.start()
+    // 在发送请求之前做些什么 token
+    // if (Session.get('token')) {
+    //   ; (<any>config.headers).common['Authorization'] = `${Session.get('token')}`
+    // }
+    const token = Local.get('token')
+    // config.headers!.Authorization = 'Bearer' + token
+    config.headers!.Authorization = token
     return config
   },
   function (error) {
@@ -26,7 +34,7 @@ service.interceptors.response.use(
     // 2xx 范围内的状态码都会触发该函数。
     // 对响应数据做点什么
     NProgress.done()
-    return response
+    return response.data
   },
   function (error) {
     // 超出 2xx 范围的状态码都会触发该函数。

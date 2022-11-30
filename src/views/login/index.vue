@@ -1,19 +1,29 @@
 <script setup lang="ts">
-import { reactive, ref, onMounted } from 'vue'
-import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
+import { reactive, ref, onMounted, watch } from 'vue'
+
+import { ElMessage } from 'element-plus'
+import type { FormInstance, FormRules } from 'element-plus'
 import { User, Lock } from '@element-plus/icons-vue'
 
 import type { LoginFormType } from './type/login'
 import { login } from '@/api/login'
 
 import { NextLoading } from '@/utils/loading'
+import { Local } from '@/utils/storage'
+
+import { userStore } from '@/stores/user'
+import { storeToRefs } from 'pinia'
+
+const Store = userStore()
 
 // 定义表单数据
 const loginForm = reactive<LoginFormType>({
-  name: 'coderwhy',
-  password: '123456',
+  name: Local.get('name') ?? '',
+  password: Local.get('password') ?? '',
 })
-const loading = ref(false)
+const { loading } = storeToRefs(Store)
+
+const isRemPwd = ref<boolean>(Local.get('isRemPwd') ?? false)
 
 // 定义校验规则
 const loginRules: FormRules = {
@@ -44,29 +54,36 @@ const loginFormRef = ref<FormInstance>()
 const submitAction = () => {
   loginFormRef.value?.validate(async (valid: boolean) => {
     if (valid) {
-      loading.value = true
-      try {
-        const name = loginForm.name
-        const password = loginForm.password
-        await login({ name, password }).then((res) => {
-          ElMessage.success('成功信息')
-          // 添加 loading，防止第一次进入界面时出现短暂空白
-          NextLoading.start()
-
-          loading.value = false
-        })
-      } catch (e) {
-        console.log(e)
-      }
-    } else {
-      ElMessage.error('错误信息')
+      // NextLoading.start()
+      const name = loginForm.name
+      const password = loginForm.password
+      Store.loginAtion({ name, password }).then((res) => {
+        //  记住密码逻辑
+        if (isRemPwd.value) {
+          Local.set('name', name)
+          Local.set('password', password)
+        } else {
+          Local.remove('name')
+          Local.remove('password')
+        }
+      })
     }
   })
 }
+//  记住密码选中状态
+watch(isRemPwd, (newValue) => {
+  console.log(newValue)
+  if (isRemPwd.value) {
+    Local.set('isRemPwd', newValue)
+    isRemPwd.value = newValue
+  } else {
+    Local.remove('isRemPwd')
+  }
+})
 
 // 页面加载时
 onMounted(() => {
-  NextLoading.done()
+  // NextLoading.done()
 })
 </script>
 
@@ -88,7 +105,7 @@ onMounted(() => {
           <!-- <span>密码</span> -->
         </el-form-item>
         <div class="login-control">
-          <el-checkbox label="记住密码" size="large" />
+          <el-checkbox label="记住密码" size="large" v-model="isRemPwd" />
           <el-checkbox label="自动登录" size="large" />
         </div>
         <el-form-item class="login-button">
