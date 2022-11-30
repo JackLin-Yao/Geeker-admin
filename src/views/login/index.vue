@@ -1,20 +1,23 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { reactive, ref, onMounted } from 'vue'
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
 import { User, Lock } from '@element-plus/icons-vue'
 
 import type { LoginFormType } from './type/login'
 import { login } from '@/api/login'
 
+import { NextLoading } from '@/utils/loading'
+
 // 定义表单数据
 const loginForm = reactive<LoginFormType>({
-  username: 'admin',
+  name: 'coderwhy',
   password: '123456',
 })
+const loading = ref(false)
 
 // 定义校验规则
 const loginRules: FormRules = {
-  username: [
+  name: [
     {
       required: true,
       message: '必须输入账号信息',
@@ -41,13 +44,17 @@ const loginFormRef = ref<FormInstance>()
 const submitAction = () => {
   loginFormRef.value?.validate(async (valid: boolean) => {
     if (valid) {
+      loading.value = true
       try {
-        const name = loginForm.username
+        const name = loginForm.name
         const password = loginForm.password
-        login({ name, password }).then((res) => {
-          console.log(res)
+        await login({ name, password }).then((res) => {
+          ElMessage.success('成功信息')
+          // 添加 loading，防止第一次进入界面时出现短暂空白
+          NextLoading.start()
+
+          loading.value = false
         })
-        ElMessage.success('成功信息')
       } catch (e) {
         console.log(e)
       }
@@ -56,6 +63,11 @@ const submitAction = () => {
     }
   })
 }
+
+// 页面加载时
+onMounted(() => {
+  NextLoading.done()
+})
 </script>
 
 <template>
@@ -66,8 +78,8 @@ const submitAction = () => {
     <div class="login-form">
       <el-form ref="loginFormRef" status-icon :model="loginForm" :rules="loginRules">
         <div class="login-title">后台管理系统</div>
-        <el-form-item prop="username">
-          <el-input placeholder="请输入账号" v-model="loginForm.username" :prefix-icon="User" clearable></el-input>
+        <el-form-item prop="name">
+          <el-input placeholder="请输入账号" v-model="loginForm.name" :prefix-icon="User" clearable></el-input>
           <!-- <span>账号</span> -->
         </el-form-item>
         <el-form-item prop="password">
@@ -80,7 +92,7 @@ const submitAction = () => {
           <el-checkbox label="自动登录" size="large" />
         </div>
         <el-form-item class="login-button">
-          <el-button type="primary" @click="submitAction">立即登录</el-button>
+          <el-button type="primary" @click="submitAction" :loading="loading">立即登录</el-button>
         </el-form-item>
         <div class="forget-password">
           <el-link type="primary">忘记密码</el-link>
@@ -112,10 +124,10 @@ const submitAction = () => {
   .login-form {
     width: 400px;
     height: 450px;
-    border-radius: 15px;
+    border-radius: 35px;
     padding: 15px;
     background-color: rgba(16 18 27 / 5%);
-    box-shadow: 1px 1px 8px #aaa6a6;
+    box-shadow: 25px 15px 25px #aaa6a6;
 
     .el-form {
       display: flex;

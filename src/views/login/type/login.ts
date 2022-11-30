@@ -1,5 +1,5 @@
 interface LoginFormType {
-  username: String
+  name: String
   password: String
 }
 export type { LoginFormType }

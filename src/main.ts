@@ -6,6 +6,7 @@ import router from './router'
 
 import 'normalize.css'
 import 'element-plus/dist/index.css'
+import 'nprogress/nprogress.css'
 
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
