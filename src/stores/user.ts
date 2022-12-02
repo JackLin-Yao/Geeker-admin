@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { login, getUserById, getUserMenuByRoleId } from '@/api/login'
 import { Local } from '@/utils/storage'
 import router from '../router/index'
+import { toast } from '@/utils/toast'
 
 export const userStore = defineStore('userStore', {
   state: (): userStoreType => ({
@@ -21,7 +22,7 @@ export const userStore = defineStore('userStore', {
       this.username = loginResult.data.name
       this.id = loginResult.data.id
       this.token = loginResult.data.token
-      this.loading = false
+
       // 进行token的保存，对登录状态的记录。
 
       Local.set('token', this.token)
@@ -32,10 +33,12 @@ export const userStore = defineStore('userStore', {
       // 根据用户角色获取用户的权限菜单
 
       const userMenuResult = await getUserMenuByRoleId(this.id)
+      console.log(userMenuResult)
       this.userMenu = userMenuResult.data
 
       // 进行页面的跳转。
-
+      toast('登陆成功', 'success')
+      this.loading = false
       router.push('/main')
     },
   },

@@ -1,10 +1,13 @@
 import axios from 'axios'
+import { ElNotification } from 'element-plus'
 import NProgress from 'nprogress'
 import { Local, Session } from './storage'
+import { toast } from './toast'
+
 // 配置新建一个 axios 实例
 const service = axios.create({
   baseURL: import.meta.env.VITE_API_URL as any,
-  timeout: 50000,
+  timeout: 10000,
   headers: { 'Content-Type': 'application/json' },
 })
 
@@ -39,6 +42,17 @@ service.interceptors.response.use(
   function (error) {
     // 超出 2xx 范围的状态码都会触发该函数。
     // 对响应错误做点什么
+    console.log(error)
+
+    toast(error.response.data || '请求失败，请联系管理员', 'error')
+    // ElNotification({
+    //   message: error.response.data,
+    //   type: 'error',
+    //   duration: 3000,
+    //   dangerouslyUseHTMLString: false,
+    //   showClose: false,
+    // })
+    NProgress.done()
     return Promise.reject(error)
   }
 )

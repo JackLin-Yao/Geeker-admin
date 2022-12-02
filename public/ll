@@ -1,0 +1,62 @@
+{
+  "id": 10,
+  "name": "多级菜单",
+  "url": null,
+  "openStyle": 0,
+  "icon": "icon-unorderedlist",
+  "children": [
+    {
+      "id": 101,
+      "name": "菜单1",
+      "url": null,
+      "openStyle": 0,
+      "icon": "icon-unorderedlist",
+      "children": [
+        {
+          "id": 1011,
+          "name": "菜单11",
+          "url": "menu/menu1/menu11/index",
+          "openStyle": 0,
+          "icon": "icon-unorderedlist"
+        },
+        {
+          "id": 1012,
+          "name": "菜单13",
+          "url": null,
+          "openStyle": 0,
+          "icon": "icon-unorderedlist",
+          "children": [
+            {
+              "id": 10121,
+              "name": "菜单121",
+              "url": "menu/menu1/menu12/menu121/index",
+              "openStyle": 0,
+              "icon": "icon-unorderedlist"
+            },
+            {
+              "id": 10122,
+              "name": "菜单122",
+              "url": "menu/menu1/menu12/menu122/index",
+              "openStyle": 0,
+              "icon": "icon-unorderedlist"
+            }
+          ]
+        },
+        {
+          "id": 1013,
+          "name": "菜单13",
+          "url": "menu/menu1/menu13/index",
+          "openStyle": 0,
+          "icon": "icon-unorderedlist"
+        }
+      ]
+    },
+    {
+      "id": 102,
+      "name": "菜单2",
+      "url": "menu/menu2/index",
+      "openStyle": 0,
+      "icon": "icon-unorderedlist"
+    }
+  ]
+}

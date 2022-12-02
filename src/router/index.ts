@@ -10,20 +10,20 @@ const router = createRouter({
       component: () => import('@/views/login/index.vue'),
     },
     {
-      path: '/main',
-      name: 'main',
-      component: () => import('@/views/main/index.vue'),
+      path: '/',
+      name: 'home',
+      component: () => import('@/Layout/index.vue'),
     },
   ],
 })
 
 // 导航守卫
-router.beforeEach((to, from, next) => {
-  const token = Local.get('token')
-  if (to.path === '/main' && !token) {
-    return '/login'
-  }
+// router.beforeEach((to, from, next) => {
+//   const token = Local.get('token')
+//   if (to.path === '/main' && !token) {
+//     return '/login'
+//   }
 
-  next()
-})
+//   next()
+// })
 export default router

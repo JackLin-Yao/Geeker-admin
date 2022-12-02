@@ -1,18 +1,14 @@
 <script setup lang="ts">
 import { reactive, ref, onMounted, watch } from 'vue'
 
-import { ElMessage } from 'element-plus'
+import { userStore } from '@/stores/user'
+import { storeToRefs } from 'pinia'
+
 import type { FormInstance, FormRules } from 'element-plus'
 import { User, Lock } from '@element-plus/icons-vue'
 
 import type { LoginFormType } from './type/login'
-import { login } from '@/api/login'
-
-import { NextLoading } from '@/utils/loading'
 import { Local } from '@/utils/storage'
-
-import { userStore } from '@/stores/user'
-import { storeToRefs } from 'pinia'
 
 const Store = userStore()
 
