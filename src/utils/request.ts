@@ -2,13 +2,15 @@ import axios from 'axios'
 import { ElNotification } from 'element-plus'
 import NProgress from 'nprogress'
 import { Local, Session } from './storage'
+import { userStore } from '@/stores/user'
+import { storeToRefs } from 'pinia'
 import { toast } from './toast'
 
 // 配置新建一个 axios 实例
 const service = axios.create({
   baseURL: import.meta.env.VITE_API_URL as any,
   timeout: 10000,
-  headers: { 'Content-Type': 'application/json' },
+  // headers: { 'Content-Type': 'application/json' },
 })
 
 // 添加请求拦截器
@@ -20,9 +22,17 @@ service.interceptors.request.use(
     // if (Session.get('token')) {
     //   ; (<any>config.headers).common['Authorization'] = `${Session.get('token')}`
     // }
-    const token = Local.get('token')
+    const token =
+      Local.get('token') ||
+      'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImNvZGVyd2h5Iiwicm9sZSI6eyJpZCI6MSwibmFtZSI6Iui2hee6p-euoeeQhuWRmCJ9LCJpYXQiOjE2Njk5NjYwMjgsImV4cCI6MTY3MjU1ODAyOH0.Q6l5RpZGAZvCBE-N6gdEtPmSt6-tefpZlDaRk17iYRoGhv9-kIz3OAIp390PvpD-rvVfQWMk-Eliajk2LKzDIOEbyslFTJeek30OJkKDV8aUo5OntmU2vCNL5qHZXkhTqf0ZmoUr_SJsAP3a2iF9IqCqPTHO5Ue0OBrLVxlNFqo'
+    console.log('🚀 ~ file: request.ts:26 ~ token', token)
     // config.headers!.Authorization = 'Bearer' + token
+    // if (config.headers && token) {
+    // 类型缩小
+    // config.headers.Authorization = 'Bearer ' + token
     config.headers!.Authorization = token
+    // }
+
     return config
   },
   function (error) {
@@ -52,6 +62,9 @@ service.interceptors.response.use(
     //   dangerouslyUseHTMLString: false,
     //   showClose: false,
     // })
+    const Store = userStore()
+    const { loading } = storeToRefs(Store)
+    loading.value = false
     NProgress.done()
     return Promise.reject(error)
   }

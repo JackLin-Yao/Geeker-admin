@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, ref, onMounted, watch } from 'vue'
+import { reactive, ref, onMounted, watch, onBeforeUnmount } from 'vue'
 
 import { userStore } from '@/stores/user'
 import { storeToRefs } from 'pinia'
@@ -78,8 +78,21 @@ watch(isRemPwd, (newValue) => {
 })
 
 // 页面加载时
+// onMounted(() => {
+// NextLoading.done()
+// })
+
+// 监听回车事件
+function onKeyUp(e: any) {
+  if (e.key == 'Enter') submitAction()
+}
+// 添加键盘监听
 onMounted(() => {
-  // NextLoading.done()
+  document.addEventListener('keyup', onKeyUp)
+})
+// 移除键盘监听
+onBeforeUnmount(() => {
+  document.removeEventListener('keyup', onKeyUp)
 })
 </script>
 
@@ -139,7 +152,7 @@ onMounted(() => {
     height: 450px;
     border-radius: 35px;
     padding: 15px;
-    background-color: rgba(16 18 27 / 5%);
+    background-color: rgba(16 18 27 / 15%);
     box-shadow: 25px 15px 25px #aaa6a6;
 
     .el-form {
