@@ -52,10 +52,7 @@ router.beforeEach(async (to, from, next) => {
   if (token && !hasGetInfo) {
     // 获取菜单信息
     const userMenu = Session.get('userMenu')
-    console.log(
-      '🚀 ~ file: index.ts:45 ~ router.beforeEach ~ userMenu',
-      userMenu
-    )
+
     hasGetInfo = true
     // 动态添加路由
   }

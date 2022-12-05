@@ -22,13 +22,13 @@ service.interceptors.request.use(
     // if (Session.get('token')) {
     //   ; (<any>config.headers).common['Authorization'] = `${Session.get('token')}`
     // }
-    const token =
-      Local.get('token') ||
-      'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImNvZGVyd2h5Iiwicm9sZSI6eyJpZCI6MSwibmFtZSI6Iui2hee6p-euoeeQhuWRmCJ9LCJpYXQiOjE2Njk5NjYwMjgsImV4cCI6MTY3MjU1ODAyOH0.Q6l5RpZGAZvCBE-N6gdEtPmSt6-tefpZlDaRk17iYRoGhv9-kIz3OAIp390PvpD-rvVfQWMk-Eliajk2LKzDIOEbyslFTJeek30OJkKDV8aUo5OntmU2vCNL5qHZXkhTqf0ZmoUr_SJsAP3a2iF9IqCqPTHO5Ue0OBrLVxlNFqo'
+    // const token =
+    // Local.get('token') ||
+    // 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImNvZGVyd2h5Iiwicm9sZSI6eyJpZCI6MSwibmFtZSI6Iui2hee6p-euoeeQhuWRmCJ9LCJpYXQiOjE2Njk5NjYwMjgsImV4cCI6MTY3MjU1ODAyOH0.Q6l5RpZGAZvCBE-N6gdEtPmSt6-tefpZlDaRk17iYRoGhv9-kIz3OAIp390PvpD-rvVfQWMk-Eliajk2LKzDIOEbyslFTJeek30OJkKDV8aUo5OntmU2vCNL5qHZXkhTqf0ZmoUr_SJsAP3a2iF9IqCqPTHO5Ue0OBrLVxlNFqo'
 
     // 类型缩小
     // config.headers.Authorization = 'Bearer ' + token
-    config.headers!.Authorization = token
+    // config.headers!.Authorization = token
 
     return config
   },

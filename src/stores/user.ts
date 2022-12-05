@@ -25,7 +25,11 @@ export const userStore = defineStore('userStore', {
   actions: {
     // 用户登录,获取用户信息和token
 
-    async loginAtion(data: { name: String; password: String }) {
+    async loginAtion(data: {
+      username: String
+      password: String
+      code: String
+    }) {
       this.loading = true
       const loginResult = await login(data)
       this.username = loginResult.data.name
