@@ -89,11 +89,27 @@ const editableTabs = ref([
 
     ::v-deep .el-tabs__header {
       margin-bottom: 0px !important;
+
+      .el-tabs__nav-prev,
+      .el-tabs__nav-next {
+        border-radius: 6px;
+
+        // background-color: rgba(16 18 27 / 15%);
+        i {
+          height: 15px;
+          width: 15px;
+        }
+      }
+
+      .el-tabs__nav-scroll {
+        background-color: transparent;
+      }
     }
 
     ::v-deep .el-tabs__item {
       margin: 0 2.5px !important;
-      border-radius: 20px;
+      border: 0;
+      border-radius: 10px;
       background-color: var(--el-color-white);
     }
   }
