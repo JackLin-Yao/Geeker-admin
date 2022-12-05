@@ -40,6 +40,10 @@ export const userStore = defineStore('userStore', {
       // 根据用户角色获取用户的权限菜单
 
       const userMenuResult = await getUserMenuByRoleId(this.id)
+      console.log(
+        '🚀 ~ file: user.ts:43 ~ loginAtion ~ userMenuResult',
+        userMenuResult
+      )
       this.userMenu = userMenuResult.data
 
       // 进行信息的本地保存，对信息状态的记录。

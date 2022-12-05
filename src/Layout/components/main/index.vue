@@ -93,7 +93,7 @@ const editableTabs = ref([
 
     ::v-deep .el-tabs__item {
       margin: 0 2.5px !important;
-      border-radius: 20px;
+      border-radius: 10px;
       background-color: var(--el-color-white);
     }
   }

@@ -25,13 +25,10 @@ service.interceptors.request.use(
     const token =
       Local.get('token') ||
       'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImNvZGVyd2h5Iiwicm9sZSI6eyJpZCI6MSwibmFtZSI6Iui2hee6p-euoeeQhuWRmCJ9LCJpYXQiOjE2Njk5NjYwMjgsImV4cCI6MTY3MjU1ODAyOH0.Q6l5RpZGAZvCBE-N6gdEtPmSt6-tefpZlDaRk17iYRoGhv9-kIz3OAIp390PvpD-rvVfQWMk-Eliajk2LKzDIOEbyslFTJeek30OJkKDV8aUo5OntmU2vCNL5qHZXkhTqf0ZmoUr_SJsAP3a2iF9IqCqPTHO5Ue0OBrLVxlNFqo'
-    console.log('🚀 ~ file: request.ts:26 ~ token', token)
-    // config.headers!.Authorization = 'Bearer' + token
-    // if (config.headers && token) {
+
     // 类型缩小
     // config.headers.Authorization = 'Bearer ' + token
     config.headers!.Authorization = token
-    // }
 
     return config
   },
@@ -52,16 +49,7 @@ service.interceptors.response.use(
   function (error) {
     // 超出 2xx 范围的状态码都会触发该函数。
     // 对响应错误做点什么
-    console.log(error)
-
     toast(error.response.data || '请求失败，请联系管理员', 'error')
-    // ElNotification({
-    //   message: error.response.data,
-    //   type: 'error',
-    //   duration: 3000,
-    //   dangerouslyUseHTMLString: false,
-    //   showClose: false,
-    // })
     const Store = userStore()
     const { loading } = storeToRefs(Store)
     loading.value = false

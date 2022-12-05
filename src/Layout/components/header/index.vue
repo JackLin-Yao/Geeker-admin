@@ -65,5 +65,20 @@ const isCollapse = () => {
   .header-right {
     margin-right: 20px;
   }
+
+  .el-breadcrumb {
+    line-height: 50px;
+    max-height: 50px;
+    overflow: hidden;
+    word-wrap: break-word;
+
+    .el-breadcrumb__item {
+      max-height: 60px;
+
+      :deep(.el-breadcrumb__inner) {
+        color: #ffffff;
+      }
+    }
+  }
 }
 </style>
