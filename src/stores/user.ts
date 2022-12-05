@@ -7,20 +7,20 @@ import { toast } from '@/utils/toast'
 interface userStoreType {
   username: string
   id: string
-  token: string
+  token?: string
   loading: boolean
-  userInfo: any
-  userMenu: any
+  userInfo?: any
+  userMenu?: any
 }
 
 export const userStore = defineStore('userStore', {
   state: (): userStoreType => ({
     username: '',
     id: '',
-    token: Local.get('token') ?? '',
+    // token: Local.get('token') ?? '',
     loading: false,
-    userInfo: Session.get('userInfo') ?? {},
-    userMenu: Session.get('userMenu') ?? [],
+    // userInfo: Session.get('userInfo') ?? {},
+    // userMenu: Session.get('userMenu') ?? [],
   }),
   actions: {
     // 用户登录,获取用户信息和token
@@ -34,27 +34,24 @@ export const userStore = defineStore('userStore', {
       const loginResult = await login(data)
       this.username = loginResult.data.name
       this.id = loginResult.data.id
-      this.token = loginResult.data.token
+      // this.token = loginResult.data.token
 
       // 获取用户的详细信息（role信息）
 
-      const userInfoResult = await getUserById(this.id)
-      this.userInfo = userInfoResult.data
+      // const userInfoResult = await getUserById(this.id)
+      // this.userInfo = userInfoResult.data
 
       // 根据用户角色获取用户的权限菜单
 
-      const userMenuResult = await getUserMenuByRoleId(this.id)
-      console.log(
-        '🚀 ~ file: user.ts:43 ~ loginAtion ~ userMenuResult',
-        userMenuResult
-      )
-      this.userMenu = userMenuResult.data
+      // const userMenuResult = await getUserMenuByRoleId(this.id)
+
+      // this.userMenu = userMenuResult.data
 
       // 进行信息的本地保存，对信息状态的记录。
 
-      Local.set('token', this.token)
-      Session.set('userInfo', this.userInfo)
-      Session.set('userMenu', this.userMenu)
+      // Local.set('token', this.token)
+      // Session.set('userInfo', this.userInfo)
+      // Session.set('userMenu', this.userMenu)
 
       // 进行页面的跳转。
 

@@ -8,8 +8,12 @@ import { toast } from './toast'
 
 // 配置新建一个 axios 实例
 const service = axios.create({
-  baseURL: import.meta.env.VITE_API_URL as any,
+  baseURL: '/api',
   timeout: 10000,
+  headers: {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+  },
   // headers: { 'Content-Type': 'application/json' },
 })
 
